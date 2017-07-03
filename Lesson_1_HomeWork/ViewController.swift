@@ -10,35 +10,28 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    let elementCount = 1_000_//000
+    let newElement = 1
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        //startHomeWork1
-        testCollectionTypes()
-        //endHomeWork1
+        testSpeedInsertAndRemoveInDifferentTypesOfCollections()
         
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-    //startHomeWork1
-    func testCollectionTypes() {
+    func printInterval(time1: Date, time2: Date, label: String) {
+        print("\(time2.timeIntervalSince(time1)) : \(label)")
+    }
+    
+    func testSpeedInsertAndRemoveInDifferentTypesOfCollections() {
         
-        let elementCount: Int = 1_000_000
-        let newElement: Int = 1
         var time1: Date
         var time2: Date
         var arrayTest: [Int] = []
-        var setTest: Set<Int> = []
-        var dictionaryTest: Dictionary = [Int: Int]()
-        
-        func printInterval(time1: Date, time2: Date, label: String) {
-            print("\(time2.timeIntervalSince(time1)) : \(label)")
-        }
+        var setTest = Set<Int>()
+        var dictionaryTest: [Int: Int] = [:]
         
         //array
         time1 = Date()
@@ -112,7 +105,6 @@ class ViewController: UIViewController {
         printInterval(time1: time1, time2: time2, label: "Dictionary 1kk remove")
         
     }
-    //endHomeWork1
-
+    
 }
 
