@@ -12,6 +12,9 @@ class ViewController: UIViewController {
     
     let elementCount = 1_000_000
     let newElement = 1
+    var arrayTest: [Int] = []
+    var setTest = Set<Int>()
+    var dictionaryTest: [Int: Int] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,88 +24,98 @@ class ViewController: UIViewController {
         
     }
     
-    func printInterval(time1: Date, time2: Date, label: String) {
-        print("\(time2.timeIntervalSince(time1)) : \(label)")
+    struct structTimeAndPrint {
+        
+        var time: Date {
+            return Date()
+        }
+        
+        func printInterval(timeBefore: Date, timeAfter: Date, infoText: String) {
+            print("\(timeAfter.timeIntervalSince(timeBefore)) : \(infoText)")
+        }
+        
+    }
+    
+    func startTestInsert(infoText: String, closureWithTest: () -> Void) {
+        
+        let TimeAndPrint = structTimeAndPrint()
+        let timeBefore = TimeAndPrint.time
+        closureWithTest()
+        let timeAfter = TimeAndPrint.time
+        TimeAndPrint.printInterval(timeBefore: timeBefore, timeAfter: timeAfter, infoText: infoText)
+    }
+    
+    func startTestRemove(infoText: String, closureWithTest: () -> Void) {
+        let TimeAndPrint = structTimeAndPrint()
+        let timeBefore = TimeAndPrint.time
+        closureWithTest()
+        let timeAfter = TimeAndPrint.time
+        TimeAndPrint.printInterval(timeBefore: timeBefore, timeAfter: timeAfter, infoText: infoText)
     }
     
     func testSpeedInsertAndRemoveInDifferentTypesOfCollections() {
         
-        var time1: Date
-        var time2: Date
-        var arrayTest: [Int] = []
-        var setTest = Set<Int>()
-        var dictionaryTest: [Int: Int] = [:]
-        
         //array
-        time1 = Date()
-        for _ in 1...elementCount {
-            arrayTest.insert(newElement, at: 0)
-        }
-        time2 = Date()
-        printInterval(time1: time1, time2: time2, label: "Array 1kk insert index first")
+        startTestInsert(infoText: "Array 1kk insert index first", closureWithTest: {
+            for _ in 1...elementCount {
+                arrayTest.insert(newElement, at: 0)
+            }
+        })
         
         arrayTest.removeAll()
-        time1 = Date()
-        for _ in 1...elementCount {
-            arrayTest.insert(newElement, at: Int(arrayTest.count / 2))
-        }
-        time2 = Date()
-        printInterval(time1: time1, time2: time2, label: "Array 1kk insert index middle")
+        startTestInsert(infoText: "Array 1kk insert index middle", closureWithTest: {
+            for _ in 1...elementCount {
+                arrayTest.insert(newElement, at: Int(arrayTest.count / 2))
+            }
+        })
         
         arrayTest.removeAll()
-        time1 = Date()
-        for _ in 1...elementCount {
-            arrayTest.insert(newElement, at: Int(arrayTest.count))
-        }
-        time2 = Date()
-        printInterval(time1: time1, time2: time2, label: "Array 1kk insert index last")
+        startTestInsert(infoText: "Array 1kk insert index last", closureWithTest: {
+            for _ in 1...elementCount {
+                arrayTest.insert(newElement, at: arrayTest.count)
+            }
+        })
         
         //set
-        time1 = Date()
-        for _ in 1...elementCount {
-            setTest.insert(newElement)
-        }
-        time2 = Date()
-        printInterval(time1: time1, time2: time2, label: "Set 1kk insert")
-        
+        startTestInsert(infoText: "Set 1kk insert", closureWithTest: {
+            for _ in 1...elementCount {
+                setTest.insert(newElement)
+            }
+        })
+
         //set2
-        time1 = Date()
-        for i in 1...elementCount {
-            setTest.insert(i)
-        }
-        time2 = Date()
-        printInterval(time1: time1, time2: time2, label: "Set2 diffrent values 1kk insert")
-        
+        startTestInsert(infoText: "Set2 diffrent values 1kk insert", closureWithTest: {
+            for i in 1...elementCount {
+                setTest.insert(i)
+            }
+        })
+
         //dictionary
-        time1 = Date()
-        for _ in 1...elementCount {
-            dictionaryTest[newElement] = newElement
-        }
-        time2 = Date()
-        printInterval(time1: time1, time2: time2, label: "Dictionary 1kk insert")
-        
+        startTestInsert(infoText: "Dictionary 1kk insert", closureWithTest: {
+            for _ in 1...elementCount {
+                dictionaryTest[newElement] = newElement
+            }
+        })
+
         //dictionary2
-        time1 = Date()
-        for i in 1...elementCount {
-            dictionaryTest[i] = i
-        }
-        time2 = Date()
-        printInterval(time1: time1, time2: time2, label: "Dictionary2 diffrent values 1kk insert")
+        startTestInsert(infoText: "Dictionary2 diffrent values 1kk insert", closureWithTest: {
+            for i in 1...elementCount {
+                dictionaryTest[i] = i
+            }
+        })
         
-        time1 = Date()
-        arrayTest.removeAll()
-        time2 = Date()
-        printInterval(time1: time1, time2: time2, label: "Array 1kk remove")
+        //remove
+        startTestRemove(infoText: "Array 1kk remove", closureWithTest: {
+            arrayTest.removeAll()
+        })
         
-        time1 = Date()
-        setTest.removeAll()
-        time2 = Date()
-        printInterval(time1: time1, time2: time2, label: "Set 1kk remove")
+        startTestRemove(infoText: "Set 1kk remove", closureWithTest: {
+            setTest.removeAll()
+        })
         
-        time1 = Date()
-        dictionaryTest.removeAll()
-        time2 = Date()
-        printInterval(time1: time1, time2: time2, label: "Dictionary 1kk remove")
+        startTestRemove(infoText: "Dictionary 1kk remove", closureWithTest: {
+            dictionaryTest.removeAll()
+        })
         
     }
     
