@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let elementCount = 1_000_//000
+    let elementCount = 1_000_000
     let newElement = 1
     
     override func viewDidLoad() {
