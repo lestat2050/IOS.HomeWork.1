@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D10BB6CB1F0BE568009601CE /* TestInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10BB6CA1F0BE568009601CE /* TestInterval.swift */; };
 		D12673081F0416D900BE5C40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12673071F0416D900BE5C40 /* AppDelegate.swift */; };
 		D126730A1F0416D900BE5C40 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12673091F0416D900BE5C40 /* ViewController.swift */; };
 		D126730D1F0416D900BE5C40 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D126730B1F0416D900BE5C40 /* Main.storyboard */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D10BB6CA1F0BE568009601CE /* TestInterval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestInterval.swift; path = ../TestInterval.swift; sourceTree = "<group>"; };
 		D12673041F0416D900BE5C40 /* Lesson_1_HomeWork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lesson_1_HomeWork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D12673071F0416D900BE5C40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D12673091F0416D900BE5C40 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 			children = (
 				D12673071F0416D900BE5C40 /* AppDelegate.swift */,
 				D12673091F0416D900BE5C40 /* ViewController.swift */,
+				D10BB6CA1F0BE568009601CE /* TestInterval.swift */,
 				D126730B1F0416D900BE5C40 /* Main.storyboard */,
 				D126730E1F0416DA00BE5C40 /* Assets.xcassets */,
 				D12673101F0416DA00BE5C40 /* LaunchScreen.storyboard */,
@@ -137,6 +140,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D126730A1F0416D900BE5C40 /* ViewController.swift in Sources */,
+				D10BB6CB1F0BE568009601CE /* TestInterval.swift in Sources */,
 				D12673081F0416D900BE5C40 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -299,6 +303,7 @@
 				D12673181F0416DA00BE5C40 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
