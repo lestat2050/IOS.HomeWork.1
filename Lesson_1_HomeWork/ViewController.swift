@@ -13,8 +13,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var timeAndPrint = StructTimeAndPrint()
-        timeAndPrint.testSpeedInsertAndRemoveInDifferentTypesOfCollections()
+        var instrumentForTest = InstrumentForTest()
+        instrumentForTest.beginTest()
         
     }
     
