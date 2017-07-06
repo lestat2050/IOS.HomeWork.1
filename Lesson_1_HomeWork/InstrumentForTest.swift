@@ -10,13 +10,10 @@ import Foundation
 
 struct InstrumentForTest {
     
-    static let elementCount = 1_000_000
-    static let newElement = 1
-    
     func beginTest() {
-        ArrayTests.beginArrayTest()
-        SetTests.beginSetTest()
-        DictionaryTests.beginSetTest()
+        ArrayTest.beginArrayTest()
+        SetTest.beginSetTest()
+        DictionaryTest.beginSetTest()
     }
     
     static func beginSampleInterval(description: String, loopOfAction: () -> Void) {
@@ -31,50 +28,50 @@ struct InstrumentForTest {
     }
     
     static func doLoopOfActions(Action: () -> Void) {
-        (1...elementCount).forEach { i in
+        for _ in Constants.firstElement...Constants.elementCount {
             Action()
         }
     }
     
-    enum ArrayTests {
+    enum ArrayTest {
         static func beginArrayTest() {
-            ArrayTests.insertValueAtBeginArray()
-            ArrayTests.insertValueInMiddleArray()
-            ArrayTests.insertValueAtEndArray()
-            ArrayTests.removeArray()
+            ArrayTest.insertValueAtBeginArray()
+            ArrayTest.insertValueInMiddleArray()
+            ArrayTest.insertValueAtEndArray()
+            ArrayTest.removeArray()
         }
         
         static func insertValueAtBeginArray() {
             var array: [Int] = []
-            InstrumentForTest.beginSampleInterval(description: Constants.ArrayConstants.descInsAtBeginArray) {
-                InstrumentForTest.doLoopOfActions() { array.insert(newElement, at: 0) }
+            InstrumentForTest.beginSampleInterval(description: Constants.Array.Insert.atBegin) {
+                InstrumentForTest.doLoopOfActions() { array.insert(Constants.newElement, at: 0) }
             }
         }
         
         static func insertValueInMiddleArray() {
             var array: [Int] = []
-            InstrumentForTest.beginSampleInterval(description: Constants.ArrayConstants.descInsInMiddleArray) {
-                InstrumentForTest.doLoopOfActions() { array.insert(newElement, at: Int(array.count / 2)) }
+            InstrumentForTest.beginSampleInterval(description: Constants.Array.Insert.inMiddle) {
+                InstrumentForTest.doLoopOfActions() { array.insert(Constants.newElement, at: Int(array.count / 2)) }
             }
         }
         
         static func insertValueAtEndArray() {
             var array: [Int] = []
-            InstrumentForTest.beginSampleInterval(description: Constants.ArrayConstants.descInsAtEndArray) {
-                InstrumentForTest.doLoopOfActions() { array.insert(newElement, at: array.count) }
+            InstrumentForTest.beginSampleInterval(description: Constants.Array.Insert.atEnd) {
+                InstrumentForTest.doLoopOfActions() { array.insert(Constants.newElement, at: array.count) }
             }
         }
         
         static func removeArray() {
             var array: [Int] = []
-            array.append(contentsOf: 1...elementCount)
-            InstrumentForTest.beginSampleInterval(description: Constants.ArrayConstants.descRemoveArray) {
+            array.append(contentsOf: 1...Constants.elementCount)
+            InstrumentForTest.beginSampleInterval(description: Constants.Array.remove) {
                 array.removeAll()
             }
         }
     }
     
-    enum SetTests {
+    enum SetTest {
         static func beginSetTest() {
             insertSameValueInSet()
             insertDifferentValueInSet()
@@ -83,15 +80,15 @@ struct InstrumentForTest {
         
         static func insertSameValueInSet() {
             var set = Set<Int>()
-            InstrumentForTest.beginSampleInterval(description: Constants.SetConstants.descInsSameValueInSet) {
-                InstrumentForTest.doLoopOfActions() { set.insert(newElement) }
+            InstrumentForTest.beginSampleInterval(description: Constants.Set.Insert.sameInSet) {
+                InstrumentForTest.doLoopOfActions() { set.insert(Constants.newElement) }
             }
         }
         
         static func insertDifferentValueInSet() {
             var set = Set<Int>()
-            InstrumentForTest.beginSampleInterval(description: Constants.SetConstants.descInsDiffValueInSet) {
-                (1...elementCount).forEach { i in
+            InstrumentForTest.beginSampleInterval(description: Constants.Set.Insert.diffInSet) {
+                for i in Constants.firstElement...Constants.elementCount {
                     set.insert(i)
                 }
             }
@@ -99,16 +96,16 @@ struct InstrumentForTest {
         
         static func removeSet() {
             var set = Set<Int>()
-            (1...elementCount).forEach { i in
-                set.insert(newElement)
+            for _ in Constants.firstElement...Constants.elementCount {
+                set.insert(Constants.newElement)
             }
-            InstrumentForTest.beginSampleInterval(description: Constants.SetConstants.descRemoveSet) {
+            InstrumentForTest.beginSampleInterval(description: Constants.Set.remove) {
                 set.removeAll()
             }
         }
     }
     
-    enum DictionaryTests {
+    enum DictionaryTest {
         static func beginSetTest() {
             insertSameValueInDictionary()
             insertDifferentValueInDictionary()
@@ -117,15 +114,15 @@ struct InstrumentForTest {
         
         static func insertSameValueInDictionary() {
             var dictionary: [Int: Int] = [:]
-            InstrumentForTest.beginSampleInterval(description: Constants.DictionaryConstants.descInsSameValueInDict) {
-                InstrumentForTest.doLoopOfActions() { dictionary[newElement] = newElement }
+            InstrumentForTest.beginSampleInterval(description: Constants.Dictionary.Insert.sameInDict) {
+                InstrumentForTest.doLoopOfActions() { dictionary[Constants.newElement] = Constants.newElement }
             }
         }
         
         static func insertDifferentValueInDictionary() {
             var dictionary: [Int: Int] = [:]
-            InstrumentForTest.beginSampleInterval(description: Constants.DictionaryConstants.descInsDiffValueInDict) {
-                (1...elementCount).forEach { i in
+            InstrumentForTest.beginSampleInterval(description: Constants.Dictionary.Insert.diffInDict) {
+                for i in Constants.firstElement...Constants.elementCount {
                     dictionary[i] = i
                 }
             }
@@ -133,10 +130,10 @@ struct InstrumentForTest {
         
         static func removeDictionary() {
             var dictionary: [Int: Int] = [:]
-            (1...elementCount).forEach { i in
+            for i in Constants.firstElement...Constants.elementCount {
                 dictionary[i] = i
             }
-            InstrumentForTest.beginSampleInterval(description: Constants.DictionaryConstants.descRemoveDictionary) {
+            InstrumentForTest.beginSampleInterval(description: Constants.Dictionary.remove) {
                 dictionary.removeAll()
             }
         }
