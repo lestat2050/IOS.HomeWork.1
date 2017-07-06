@@ -10,10 +10,11 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    let instrumentForTest = InstrumentForTest()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var instrumentForTest = InstrumentForTest()
         instrumentForTest.beginTest()
         
     }

@@ -10,111 +10,136 @@ import Foundation
 
 struct InstrumentForTest {
     
-    private let elementCount = 1_000_000
-    private let newElement = 1
-    private var array: [Int] = []
-    private var set = Set<Int>()
-    private var dictionary: [Int: Int] = [:]
+    static let elementCount = 1_000_000
+    static let newElement = 1
     
-    mutating func beginTest() {
-        insertValueAtBeginArray()
-        insertValueInMiddleArray()
-        insertValueAtEndArray()
-        insertSameValueInSet()
-        insertDifferentValueInSet()
-        insertSameValueInDictionary()
-        insertDifferentValueInDictionary()
-        removeArray()
-        removeSet()
-        removeDictionary()
+    func beginTest() {
+        ArrayTests.beginArrayTest()
+        SetTests.beginSetTest()
+        DictionaryTests.beginSetTest()
     }
     
-    private func printInterval(timeBefore: Date, timeAfter: Date, description: String) {
-        print("\(timeAfter.timeIntervalSince(timeBefore)) : \(description)")
-    }
-    
-    private func beginSampleInterval(description: String, loopOfAction: () -> Void) {
+    static func beginSampleInterval(description: String, loopOfAction: () -> Void) {
         let timeBefore = Date()
         loopOfAction()
         let timeAfter = Date()
         printInterval(timeBefore: timeBefore, timeAfter: timeAfter, description: description)
     }
     
-    private mutating func doLoopOfActions(Action: () -> Void) {
+    static func printInterval(timeBefore: Date, timeAfter: Date, description: String) {
+        print("\(timeAfter.timeIntervalSince(timeBefore)) : \(description)")
+    }
+    
+    static func doLoopOfActions(Action: () -> Void) {
         (1...elementCount).forEach { i in
             Action()
         }
     }
     
-    private mutating func insertValueAtBeginArray() {
-        beginSampleInterval(description: "Inserting a value at the beginning of an array") {
-            doLoopOfActions() { array.insert(newElement, at: 0) }
+    enum ArrayTests {
+        static func beginArrayTest() {
+            ArrayTests.insertValueAtBeginArray()
+            ArrayTests.insertValueInMiddleArray()
+            ArrayTests.insertValueAtEndArray()
+            ArrayTests.removeArray()
         }
-    }
-    
-    private mutating func insertValueInMiddleArray() {
-        array.removeAll()
-        beginSampleInterval(description: "Inserting a value in the middle of an array") {
-            doLoopOfActions() { array.insert(newElement, at: Int(array.count / 2)) }
+        
+        static func insertValueAtBeginArray() {
+            var array: [Int] = []
+            InstrumentForTest.beginSampleInterval(description: Constants.ArrayConstants.descInsAtBeginArray) {
+                InstrumentForTest.doLoopOfActions() { array.insert(newElement, at: 0) }
+            }
         }
-    }
-    
-    private mutating func insertValueAtEndArray() {
-        array.removeAll()
-        beginSampleInterval(description: "Inserting a value at the end of an array") {
-            doLoopOfActions() { array.insert(newElement, at: array.count) }
+        
+        static func insertValueInMiddleArray() {
+            var array: [Int] = []
+            InstrumentForTest.beginSampleInterval(description: Constants.ArrayConstants.descInsInMiddleArray) {
+                InstrumentForTest.doLoopOfActions() { array.insert(newElement, at: Int(array.count / 2)) }
+            }
         }
-    }
-    
-    private mutating func insertSameValueInSet() {
-        beginSampleInterval(description: "Inserting the same value into the set") {
-            doLoopOfActions() { set.insert(newElement) }
+        
+        static func insertValueAtEndArray() {
+            var array: [Int] = []
+            InstrumentForTest.beginSampleInterval(description: Constants.ArrayConstants.descInsAtEndArray) {
+                InstrumentForTest.doLoopOfActions() { array.insert(newElement, at: array.count) }
+            }
         }
-    }
-    
-    private mutating func insertDifferentValueInSet() {
-        set.removeAll()
-        beginSampleInterval(description: "Inserting different values into the set") {
-            (1...elementCount).forEach { i in
-                set.insert(i)
+        
+        static func removeArray() {
+            var array: [Int] = []
+            array.append(contentsOf: 1...elementCount)
+            InstrumentForTest.beginSampleInterval(description: Constants.ArrayConstants.descRemoveArray) {
+                array.removeAll()
             }
         }
     }
     
-    private mutating func insertSameValueInDictionary() {
-        beginSampleInterval(description: "Inserting the same value in the dictionary") {
-            doLoopOfActions() { dictionary[newElement] = newElement }
+    enum SetTests {
+        static func beginSetTest() {
+            insertSameValueInSet()
+            insertDifferentValueInSet()
+            removeSet()
+        }
+        
+        static func insertSameValueInSet() {
+            var set = Set<Int>()
+            InstrumentForTest.beginSampleInterval(description: Constants.SetConstants.descInsSameValueInSet) {
+                InstrumentForTest.doLoopOfActions() { set.insert(newElement) }
+            }
+        }
+        
+        static func insertDifferentValueInSet() {
+            var set = Set<Int>()
+            InstrumentForTest.beginSampleInterval(description: Constants.SetConstants.descInsDiffValueInSet) {
+                (1...elementCount).forEach { i in
+                    set.insert(i)
+                }
+            }
+        }
+        
+        static func removeSet() {
+            var set = Set<Int>()
+            (1...elementCount).forEach { i in
+                set.insert(newElement)
+            }
+            InstrumentForTest.beginSampleInterval(description: Constants.SetConstants.descRemoveSet) {
+                set.removeAll()
+            }
         }
     }
     
-    private mutating func insertDifferentValueInDictionary() {
-        dictionary.removeAll()
-        beginSampleInterval(description: "Inserting different values in the dictionary") {
+    enum DictionaryTests {
+        static func beginSetTest() {
+            insertSameValueInDictionary()
+            insertDifferentValueInDictionary()
+            removeDictionary()
+        }
+        
+        static func insertSameValueInDictionary() {
+            var dictionary: [Int: Int] = [:]
+            InstrumentForTest.beginSampleInterval(description: Constants.DictionaryConstants.descInsSameValueInDict) {
+                InstrumentForTest.doLoopOfActions() { dictionary[newElement] = newElement }
+            }
+        }
+        
+        static func insertDifferentValueInDictionary() {
+            var dictionary: [Int: Int] = [:]
+            InstrumentForTest.beginSampleInterval(description: Constants.DictionaryConstants.descInsDiffValueInDict) {
+                (1...elementCount).forEach { i in
+                    dictionary[i] = i
+                }
+            }
+        }
+        
+        static func removeDictionary() {
+            var dictionary: [Int: Int] = [:]
             (1...elementCount).forEach { i in
                 dictionary[i] = i
             }
+            InstrumentForTest.beginSampleInterval(description: Constants.DictionaryConstants.descRemoveDictionary) {
+                dictionary.removeAll()
+            }
         }
     }
-    
-    private mutating func removeArray() {
-        beginSampleInterval(description: "Deleting an array") {
-            array.removeAll()
-        }
-    }
-    
-    private mutating func removeSet() {
-        beginSampleInterval(description: "Deleting a set") {
-            set.removeAll()
-        }
-    }
-    
-    private mutating func removeDictionary() {
-        beginSampleInterval(description: "Deleting a dictionary") {
-            dictionary.removeAll()
-        }
-    }
-    
-    
-    
-    
+ 
 }
