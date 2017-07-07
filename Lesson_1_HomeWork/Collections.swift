@@ -16,20 +16,16 @@ struct Collections {
         Dictionaries.beginTest()
     }
     
-    static func beginSample(description: String, loopWithAction: () -> Void) {
+    static func timeInterval(description: String, operation: () -> Void) {
         let timeBefore = Date()
-        loopWithAction()
+        operation()
         let timeAfter = Date()
-        printInterval(timeBefore: timeBefore, timeAfter: timeAfter, description: description)
-    }
-    
-    static func printInterval(timeBefore: Date, timeAfter: Date, description: String) {
         print("\(timeAfter.timeIntervalSince(timeBefore)) : \(description)")
     }
     
-    static func doLoop(Action: (Int) -> Void) {
+    static func doLoop(action: (Int) -> Void) {
         for i in Constants.firstElement...Constants.elementCount {
-            Action(i)
+            action(i)
         }
     }
     
@@ -43,21 +39,21 @@ struct Collections {
         
         static func insertValueAtBegin() {
             var array: [Int] = []
-            Collections.beginSample(description: Constants.Array.Insert.atBegin) {
+            Collections.timeInterval(description: Constants.Array.Insert.atBegin) {
                 Collections.doLoop() { _ in array.insert(Constants.newElement, at: 0) }
             }
         }
         
         static func insertValueInMiddle() {
             var array: [Int] = []
-            Collections.beginSample(description: Constants.Array.Insert.inMiddle) {
+            Collections.timeInterval(description: Constants.Array.Insert.inMiddle) {
                 Collections.doLoop() { _ in array.insert(Constants.newElement, at: Int(array.count / 2)) }
             }
         }
         
         static func insertValueAtEnd() {
             var array: [Int] = []
-            Collections.beginSample(description: Constants.Array.Insert.atEnd) {
+            Collections.timeInterval(description: Constants.Array.Insert.atEnd) {
                 Collections.doLoop() { _ in array.insert(Constants.newElement, at: array.count) }
             }
         }
@@ -65,7 +61,7 @@ struct Collections {
         static func remove() {
             var array: [Int] = []
             array.append(contentsOf: 1...Constants.elementCount)
-            Collections.beginSample(description: Constants.Array.remove) {
+            Collections.timeInterval(description: Constants.Array.remove) {
                 array.removeAll()
             }
         }
@@ -81,14 +77,14 @@ struct Collections {
         
         static func insertSameValue() {
             var set = Set<Int>()
-            Collections.beginSample(description: Constants.Set.Insert.sameInSet) {
+            Collections.timeInterval(description: Constants.Set.Insert.sameInSet) {
                 Collections.doLoop() { _ in set.insert(Constants.newElement) }
             }
         }
         
         static func insertDiffValue() {
             var set = Set<Int>()
-            Collections.beginSample(description: Constants.Set.Insert.diffInSet) {
+            Collections.timeInterval(description: Constants.Set.Insert.diffInSet) {
                 Collections.doLoop() { i in set.insert(i) }
             }
         }
@@ -98,7 +94,7 @@ struct Collections {
             for _ in Constants.firstElement...Constants.elementCount {
                 set.insert(Constants.newElement)
             }
-            Collections.beginSample(description: Constants.Set.remove) {
+            Collections.timeInterval(description: Constants.Set.remove) {
                 set.removeAll()
             }
         }
@@ -113,14 +109,14 @@ struct Collections {
         
         static func insertSameValue() {
             var dictionary: [Int: Int] = [:]
-            Collections.beginSample(description: Constants.Dictionary.Insert.sameInDict) {
+            Collections.timeInterval(description: Constants.Dictionary.Insert.sameInDict) {
                 Collections.doLoop() { _ in dictionary[Constants.newElement] = Constants.newElement }
             }
         }
         
         static func insertDiffValue() {
             var dictionary: [Int: Int] = [:]
-            Collections.beginSample(description: Constants.Dictionary.Insert.diffInDict) {
+            Collections.timeInterval(description: Constants.Dictionary.Insert.diffInDict) {
                 Collections.doLoop() { i in dictionary[i] = i }
             }
         }
@@ -130,7 +126,7 @@ struct Collections {
             for i in Constants.firstElement...Constants.elementCount {
                 dictionary[i] = i
             }
-            Collections.beginSample(description: Constants.Dictionary.remove) {
+            Collections.timeInterval(description: Constants.Dictionary.remove) {
                 dictionary.removeAll()
             }
         }

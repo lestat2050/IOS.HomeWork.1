@@ -9,7 +9,7 @@
 import Foundation
 
 enum Constants {
-    static let elementCount = 1_000_000
+    static let elementCount = 1_000_//000
     static let firstElement = 1
     static let newElement = 1
     enum Array {
