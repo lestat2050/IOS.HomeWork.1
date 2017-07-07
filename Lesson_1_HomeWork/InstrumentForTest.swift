@@ -13,7 +13,7 @@ struct InstrumentForTest {
     func beginTest() {
         ArrayTest.beginArrayTest()
         SetTest.beginSetTest()
-        DictionaryTest.beginSetTest()
+        //DictionaryTest.beginSetTest()
     }
     
     static func beginSampleInterval(description: String, loopOfAction: () -> Void) {
@@ -27,27 +27,31 @@ struct InstrumentForTest {
         print("\(timeAfter.timeIntervalSince(timeBefore)) : \(description)")
     }
     
-    static func doLoopOfActions(Action: () -> Void) {
-        for _ in Constants.firstElement...Constants.elementCount {
-            Action()
+    static func doLoopOfActions(Action: (Int) -> Void) {
+        for i in Constants.firstElement...Constants.elementCount {
+            Action(i)
         }
     }
     
     enum ArrayTest {
         static func beginArrayTest() {
             ArrayTest.insertValueAtBeginArray()
+            /*
             ArrayTest.insertValueInMiddleArray()
             ArrayTest.insertValueAtEndArray()
             ArrayTest.removeArray()
+            */
         }
         
         static func insertValueAtBeginArray() {
             var array: [Int] = []
             InstrumentForTest.beginSampleInterval(description: Constants.Array.Insert.atBegin) {
-                InstrumentForTest.doLoopOfActions() { array.insert(Constants.newElement, at: 0) }
+                InstrumentForTest.doLoopOfActions() { _ in array.insert(Constants.newElement, at: 0) }
             }
+            print(array)
         }
         
+        /*
         static func insertValueInMiddleArray() {
             var array: [Int] = []
             InstrumentForTest.beginSampleInterval(description: Constants.Array.Insert.inMiddle) {
@@ -69,14 +73,18 @@ struct InstrumentForTest {
                 array.removeAll()
             }
         }
+        */
     }
     
+    
     enum SetTest {
+        
         static func beginSetTest() {
-            insertSameValueInSet()
+            //insertSameValueInSet()
             insertDifferentValueInSet()
-            removeSet()
+            //removeSet()
         }
+        /*
         
         static func insertSameValueInSet() {
             var set = Set<Int>()
@@ -85,14 +93,18 @@ struct InstrumentForTest {
             }
         }
         
+        */
         static func insertDifferentValueInSet() {
             var set = Set<Int>()
             InstrumentForTest.beginSampleInterval(description: Constants.Set.Insert.diffInSet) {
-                for i in Constants.firstElement...Constants.elementCount {
-                    set.insert(i)
-                }
+                InstrumentForTest.doLoopOfActions() { i in set.insert(i) }
+//                for i in Constants.firstElement...Constants.elementCount {
+//                    set.insert(i)
+//                }
             }
+            print(set)
         }
+        /*
         
         static func removeSet() {
             var set = Set<Int>()
@@ -103,8 +115,9 @@ struct InstrumentForTest {
                 set.removeAll()
             }
         }
+        */
     }
-    
+    /*
     enum DictionaryTest {
         static func beginSetTest() {
             insertSameValueInDictionary()
@@ -138,5 +151,6 @@ struct InstrumentForTest {
             }
         }
     }
+ */
  
 }
