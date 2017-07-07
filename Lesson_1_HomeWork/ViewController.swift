@@ -10,12 +10,12 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let instrumentForTest = InstrumentForTest()
+    let collections = Collections()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        instrumentForTest.beginTest()
+        collections.beginTest()
         
     }
     
